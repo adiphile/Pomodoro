@@ -3,7 +3,7 @@
   "short_name": "Pomodoro",
   "description": "A minimalist Pomodoro timer with ambient sounds and responsive layout",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "orientation": "any",

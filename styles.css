@@ -29,8 +29,9 @@ html, body {
 body {
   width: 100%;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
 }
 
 .app-shell {
@@ -39,17 +40,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  padding: 0;
   box-sizing: border-box;
 }
 
 
 .display-card {
-  width: min(96vw, 900px);
+  width: calc(100vw - 1rem);
   max-width: 100%;
-  min-height: min(88vh, 560px);
+  min-height: calc(100vh - 1rem);
+  height: calc(100vh - 1rem);
   padding: 2rem;
-  border-radius: 40px;
+  border-radius: 32px;
   background: var(--card);
   border: 1px solid var(--card-border);
   backdrop-filter: blur(28px);
@@ -309,14 +311,15 @@ body {
   }
 
   .app-shell {
-    padding: max(0.75rem, env(safe-area-inset-left)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-top));
+    padding: 0.5rem;
   }
 
   .display-card {
-    width: min(92vw, 1000px);
-    min-height: min(88vh, 650px);
-    padding: 1.75rem;
-    border-radius: 34px;
+    width: calc(100vw - 1rem);
+    min-height: calc(100vh - 1rem);
+    height: calc(100vh - 1rem);
+    padding: 1.25rem;
+    border-radius: 28px;
   }
 
   .timer-face {
@@ -360,6 +363,7 @@ body {
   .display-card {
     width: 100vw;
     min-height: 100vh;
+    height: 100vh;
     border-radius: 0;
     padding: calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
   }
