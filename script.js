@@ -470,34 +470,75 @@ if ('serviceWorker' in navigator) {
   }).catch(() => {});
 }
 
-// Device Orientation Handler
+// Device Orientation Handler - Enhanced
 function handleOrientationChange() {
-  const angle = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
-  document.documentElement.setAttribute('data-orientation', angle);
+  const isPortrait = window.innerHeight > window.innerWidth;
+  const orientation = isPortrait ? 'portrait' : 'landscape';
+  document.documentElement.setAttribute('data-orientation', orientation);
+  document.body.style.width = '100vw';
+  document.body.style.height = '100vh';
 }
+
+// Prevent zoom and auto-hide address bar
+function preventZoom(e) {
+  if (e.touches.length > 1) {
+    e.preventDefault();
+  }
+}
+
+document.addEventListener('touchmove', preventZoom, { passive: false });
+document.addEventListener('gesturestart', e => e.preventDefault());
 
 // Listen for orientation changes
 window.addEventListener('orientationchange', handleOrientationChange);
 window.addEventListener('resize', handleOrientationChange);
 window.addEventListener('load', handleOrientationChange);
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    handleOrientationChange();
+  }, 100);
+});
 
-// Request Fullscreen on mobile
-function requestFullscreenOnMobile() {
-  const isPortrait = window.innerHeight > window.innerWidth;
-  if (isPortrait && document.documentElement.requestFullscreen && !document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
+// Screen Orientation API - Allow both portrait and landscape
+if (screen.orientation && screen.orientation.lock) {
+  Promise.all([
+    screen.orientation.lock('portrait-primary').catch(() => {}),
+    screen.orientation.lock('landscape-primary').catch(() => {})
+  ]).catch(() => {});
+  
+  screen.orientation.addEventListener('change', handleOrientationChange);
+}
+
+// Request fullscreen and handle orientation
+function enableFullscreen() {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    elem.mozRequestFullScreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
   }
 }
 
-displayCard.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    requestFullscreenOnMobile();
-  }
-}, { once: false });
-
-// Auto request fullscreen on first interaction
+// Try fullscreen on first touch
+let fullscreenRequested = false;
 document.addEventListener('touchstart', () => {
-  if (!document.fullscreenElement && window.innerHeight <= 600) {
-    requestFullscreenOnMobile();
+  if (!fullscreenRequested && window.innerHeight <= 768) {
+    enableFullscreen();
+    fullscreenRequested = true;
   }
-}, { once: true });
+}, { once: false, passive: true });
+
+// Handle visibility change to re-request fullscreen
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && !document.fullscreenElement) {
+    setTimeout(enableFullscreen, 500);
+  }
+});
+
+handleOrientationChange();
+
