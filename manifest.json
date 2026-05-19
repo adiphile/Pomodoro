@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23d4af37;stop-opacity:1' /><stop offset='100%' style='stop-color:%23c89f2f;stop-opacity:1' /></linearGradient></defs><rect fill='url(%23grad)' width='180' height='180' rx='45'/><circle cx='90' cy='90' r='70' fill='%230a0a0a'/><circle cx='90' cy='90' r='62' fill='url(%23grad)'/><circle cx='90' cy='90' r='58' fill='%230a0a0a'/><g stroke='%23d4af37' stroke-width='4' fill='none'><line x1='90' y1='35' x2='90' y2='50'/><line x1='90' y1='130' x2='90' y2='145'/><line x1='35' y1='90' x2='50' y2='90'/><line x1='130' y1='90' x2='145' y2='90'/></g><text x='90' y='105' font-size='42' font-weight='bold' text-anchor='middle' fill='%23d4af37' font-family='system-ui, -apple-system'>25</text></svg>",

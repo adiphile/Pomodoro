@@ -500,13 +500,8 @@ window.addEventListener('orientationchange', () => {
   }, 100);
 });
 
-// Screen Orientation API - Allow both portrait and landscape
-if (screen.orientation && screen.orientation.lock) {
-  Promise.all([
-    screen.orientation.lock('portrait-primary').catch(() => {}),
-    screen.orientation.lock('landscape-primary').catch(() => {})
-  ]).catch(() => {});
-  
+// Screen Orientation API - update orientation metadata only
+if (screen.orientation) {
   screen.orientation.addEventListener('change', handleOrientationChange);
 }
 
