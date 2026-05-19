@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="display-card">
+      <div class="mode-row">
+        <button class="mode-btn active" data-mode="work">pomodoro</button>
+        <button class="mode-btn" data-mode="short">short break</button>
+        <button class="mode-btn" data-mode="long">long break</button>
+      </div>
+      <div class="timer-face" id="timerFace">25:00</div>
+      <div class="action-row">
+        <button id="startButton" class="action-pill">start</button>
+        <button id="resetButton" class="icon-btn" title="Reset">⟲</button>
+        <button id="settingsButton" class="icon-btn" title="Settings">⚙</button>
+      </div>
+      <div class="footer-note">tap the screen to pause / resume</div>
+    </div>
+  </div>
+
+  <div class="settings-overlay hidden" id="settingsOverlay" aria-hidden="true">
+    <div class="settings-panel">
+      <div class="settings-header">
+        <div>
+          <div class="settings-title">Settings</div>
+          <div class="settings-subtitle">Edit timer lengths and sound options</div>
+        </div>
+        <button id="closeSettings" class="icon-btn small" title="Close settings">✕</button>
+      </div>
+
+      <div class="settings-grid">
+        <label class="settings-field">
+          <span>pomodoro</span>
+          <input id="pomodoroInput" type="number" min="1" max="180" />
+        </label>
+        <label class="settings-field">
+          <span>short break</span>
+          <input id="shortInput" type="number" min="1" max="60" />
+        </label>
+        <label class="settings-field">
+          <span>long break</span>
+          <input id="longInput" type="number" min="1" max="120" />
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle">
+          <span>ambient sound during pomodoro</span>
+          <input id="ambientToggle" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="settings-field">
+        <span>sound type</span>
+        <select id="ambientType">
+          <option value="rain">rain</option>
+          <option value="bonfire">bonfire</option>
+          <option value="lofi">lofi</option>
+          <option value="lofi-beats">lofi beats</option>
+        </select>
+      </div>
+
+      <div class="settings-field">
+        <span>ambient volume</span>
+        <input id="ambientVolume" type="range" min="0" max="100" />
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle">
+          <span>finish sound</span>
+          <input id="finishToggle" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="settings-actions">
+        <button id="saveSettings" class="action-pill">save changes</button>
+        <button id="resetAll" class="ghost-pill">reset all</button>
+      </div>
+
+      <div class="settings-note">Changes are stored locally in your browser.</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
