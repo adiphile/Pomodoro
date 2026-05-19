@@ -469,3 +469,35 @@ if ('serviceWorker' in navigator) {
     scope: '/'
   }).catch(() => {});
 }
+
+// Device Orientation Handler
+function handleOrientationChange() {
+  const angle = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+  document.documentElement.setAttribute('data-orientation', angle);
+}
+
+// Listen for orientation changes
+window.addEventListener('orientationchange', handleOrientationChange);
+window.addEventListener('resize', handleOrientationChange);
+window.addEventListener('load', handleOrientationChange);
+
+// Request Fullscreen on mobile
+function requestFullscreenOnMobile() {
+  const isPortrait = window.innerHeight > window.innerWidth;
+  if (isPortrait && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+
+displayCard.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    requestFullscreenOnMobile();
+  }
+}, { once: false });
+
+// Auto request fullscreen on first interaction
+document.addEventListener('touchstart', () => {
+  if (!document.fullscreenElement && window.innerHeight <= 600) {
+    requestFullscreenOnMobile();
+  }
+}, { once: true });
