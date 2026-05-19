@@ -462,3 +462,10 @@ displayCard.addEventListener('click', event => {
 applySettings();
 setMode(currentMode);
 closeSettingsOverlay();
+
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('data:application/javascript,self.addEventListener("install",e=>e.waitUntil(caches.open("pomodoro-v1").then(c=>c.addAll(["/","/index.html","/styles.css","/script.js"]))));self.addEventListener("fetch",e=>{if(e.request.method==="GET"){e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))}});', {
+    scope: '/'
+  }).catch(() => {});
+}
